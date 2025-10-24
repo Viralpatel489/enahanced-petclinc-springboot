@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        SONAR_HOST_URL = 'https://sonarcloud.io/' // Replace with your SonarQube server URL
+         SONAR_HOST_URL_CREDENTIALS = 'sonarqube' // Replace with your SonarQube token credentials ID
+        
+    }
     tools {
         maven 'maven'
     }
@@ -14,11 +19,19 @@ pipeline {
             }
         }
         stage('sonarQubeScan') {
-            steps {
-                echo 'sonarQubeScan..'
-                 withSonarQubeEnv('sonarqube') {
-                    sh 'mvn sonar:sonar'}
-            }
+            environment {
+                SCANNER_HOME = tool 'Sonar-scanner'
+            }   
+             steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh '''${SCANNER_HOME}/bin/sonar-scanner \
+                    -Dsonar.organization=Viralpatel489 \
+                    -Dsonar.projectName=sprinbootjavaapp \
+                    -Dsonar.projectKey=springbootjavaapp \
+                    -Dsonar.java.binaries=.
+                  '''
+                }
+            }         
         }
         stage('Test') {
             steps {
