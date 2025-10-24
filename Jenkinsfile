@@ -20,10 +20,10 @@ pipeline {
         }
         stage('sonarQubeScan') {
             environment {
-                SCANNER_HOME = tool 'Sonarqube'
+                SCANNER_HOME = tool 'SonarQube Scanner'
             }   
              steps {
-                withSonarQubeEnv('sonarqube') {
+                withSonarQubeEnv('SonarQube Scanner') {
                     sh '''${SCANNER_HOME}/bin/sonar-scanner \
                     -Dsonar.organization=Viralpatel489 \
                     -Dsonar.projectName=sprinbootjavaapp \
