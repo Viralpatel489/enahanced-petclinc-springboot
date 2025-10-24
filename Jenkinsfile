@@ -13,12 +13,20 @@ pipeline {
                 sh 'mvn clean'
             }
         }
+        stage('sonarQubeScan') {
+            steps {
+                echo 'sonarQubeScan..'
+                 withSonarQubeEnv('sonarqube') {
+                    sh 'mvn sonar:sonar'}
+            }
+        }
         stage('Test') {
             steps {
                 echo 'Testing..'
+                sh 'mvn test'
             }
         }
-        stage('Deploy') {
+        stage('build') {
             steps {
                 echo 'Deploying1....'
             }
