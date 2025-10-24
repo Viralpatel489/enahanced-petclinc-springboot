@@ -3,7 +3,7 @@ pipeline {
     environment {
         SONAR_HOST_URL = 'https://sonarcloud.io/' // Replace with your SonarQube server URL
         SONAR_HOST_URL_CREDENTIALS = 'sonarqube' // Replace with your SonarQube token credentials ID
-        SONAR_ORG_KEY = 'viralpatel489' // Replace with your SonarQube organization key
+        SONAR_ORG_KEY = 'Viralpatel489' // Replace with your SonarQube organization key
         SONAR_PROJECT_KEY = 'sprinbootjavaapp' // Replace with your SonarQube project key
     
         
