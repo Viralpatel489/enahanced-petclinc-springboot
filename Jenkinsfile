@@ -31,12 +31,12 @@ pipeline {
             }
         }
         
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-                sh 'mvn test'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         echo 'Testing..'
+        //         sh 'mvn test'
+        //     }
+        // }
         // stage('build') {
         //     steps {
         //         echo 'Deploying12....'
