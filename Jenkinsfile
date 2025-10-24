@@ -37,10 +37,10 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('build') {
-            steps {
-                echo 'Deploying12....'
-            }
-        }
+        // stage('build') {
+        //     steps {
+        //         echo 'Deploying12....'
+        //     }
+        // }
     }
 }
