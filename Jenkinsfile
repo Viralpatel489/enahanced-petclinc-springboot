@@ -23,11 +23,13 @@ pipeline {
         }
         stage('sonarQubeScan') {
             steps {
+            withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]){
             sh "mvn verify sonar:sonar \
             -Dsonar.organization=${env.SONAR_ORG_KEY} \
             -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} \
             -Dsonar.host.url=${env.SONAR_HOST_URL} \
             -Dsonar.login=${env.SONAR_HOST_URL_CREDENTIALS}"
+                }
             }
         }
         
