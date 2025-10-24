@@ -28,7 +28,7 @@ pipeline {
             -Dsonar.organization=${env.SONAR_ORG_KEY} \
             -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} \
             -Dsonar.host.url=${env.SONAR_HOST_URL} \
-            -Dsonar.token=${env.SONAR_HOST_URL_CREDENTIALS}"
+            -Dsonar.login=${env.SONAR_HOST_URL_CREDENTIALS}"
                 }
             }
         }
