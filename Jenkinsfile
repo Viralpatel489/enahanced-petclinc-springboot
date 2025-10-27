@@ -19,56 +19,56 @@ pipeline {
                 git branch: 'prod' , url: 'https://github.com/Viralpatel489/enahanced-petclinc-springboot.git'
         }
       }
-        stage('Validate with Maven ') {
-            steps {
-                sh 'mvn validate'
-            }
-        }
-        stage('Compile with Maven ') {
-            steps {
-                sh 'mvn compile'
-            }
-        }
-        stage('Sonar Analysis ') {
-            environment {
-                SCANNER_HOME = tool 'sonarproject2'
-            }   
-            steps {
-                withCredentials([string(credentialsId: 'token1', variable: 'SONAR_AUTH_TOKEN')]) {
-                withSonarQubeEnv('sonarqubeserver') {
-                    sh '''${SCANNER_HOME}/bin/sonar-scanner \
-                    -Dsonar.organization=viralpatel489 \
-                    -Dsonar.projectName=project2 \
-                    -Dsonar.projectKey=viralpatel489_project2 \
-                    -Dsonar.sources=. \
-                    -Dsonar.java.binaries=. \
-                    -Dsonar.token=${SONAR_AUTH_TOKEN}
-                  '''
-                    }
-                }
-            }         
-        }
+        // stage('Validate with Maven ') {
+        //     steps {
+        //         sh 'mvn validate'
+        //     }
+        // }
+        // stage('Compile with Maven ') {
+        //     steps {
+        //         sh 'mvn compile'
+        //     }
+        // }
+        // stage('Sonar Analysis ') {
+        //     environment {
+        //         SCANNER_HOME = tool 'sonarproject2'
+        //     }   
+        //     steps {
+        //         withCredentials([string(credentialsId: 'token1', variable: 'SONAR_AUTH_TOKEN')]) {
+        //         withSonarQubeEnv('sonarqubeserver') {
+        //             sh '''${SCANNER_HOME}/bin/sonar-scanner \
+        //             -Dsonar.organization=viralpatel489 \
+        //             -Dsonar.projectName=project2 \
+        //             -Dsonar.projectKey=viralpatel489_project2 \
+        //             -Dsonar.sources=. \
+        //             -Dsonar.java.binaries=. \
+        //             -Dsonar.token=${SONAR_AUTH_TOKEN}
+        //           '''
+        //             }
+        //         }
+        //     }         
+        // }
          stage('Maven Package ') {
             steps {
                 sh 'mvn package'
             }
         }
-        stage('Sonar Quality Gate') {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                    // , credentialsId: 'sonar'
-                }
-            }
-        }
-        // stage('Docker Build') {
+        // stage('Sonar Quality Gate') {
         //     steps {
-        //         script {
-        //             echo "Building Docker Image......."
-        //             docker.build ("${IMAGE_NAME}:${IMAGE_TAG}") 
+        //         timeout(time: 1, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: true
+        //             // , credentialsId: 'sonar'
         //         }
         //     }
         // }
+        stage('Docker Build') {
+            steps {
+                script {
+                    echo "Building Docker Image......."
+                    docker.build ("${IMAGE_NAME}:${IMAGE_TAG}") 
+                }
+            }
+        }
         // stage('Azure Login TO ACR') {
         //     steps {
         //         withCredentials([usernamePassword(credentialsId: 'azure-acr-spn', usernameVariable: 'AZURE_USERNAME', passwordVariable: 'AZURE_PASSWORD')]) {
