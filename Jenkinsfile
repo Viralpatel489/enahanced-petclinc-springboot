@@ -34,7 +34,7 @@ pipeline {
             //     SCANNER_HOME = tool 'sonarproject2'
             // }   
             steps {
-                withCredentials([string(credentialsId: 'sonar-token-id', variable: 'SONAR_AUTH_TOKEN')]) {
+                withCredentials([string(credentialsId: 'token1', variable: 'SONAR_AUTH_TOKEN')]) {
                 withSonarQubeEnv('sonarqubeserver') {
                     sh '''${SCANNER_HOME}/bin/sonar-scanner \
                     -Dsonar.organization=viralpatel489 \
