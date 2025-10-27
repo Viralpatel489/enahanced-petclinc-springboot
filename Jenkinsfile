@@ -30,17 +30,21 @@ pipeline {
             }
         }
         stage('Sonar Analysis ') {
-            environment {
-                SCANNER_HOME = tool 'sonarproject2'
-            }   
+            // environment {
+            //     SCANNER_HOME = tool 'sonarproject2'
+            // }   
             steps {
+                withCredentials([string(credentialsId: 'sonar-token-id', variable: 'SONAR_AUTH_TOKEN')]) {
                 withSonarQubeEnv('sonarqubeserver') {
                     sh '''${SCANNER_HOME}/bin/sonar-scanner \
                     -Dsonar.organization=viralpatel489 \
                     -Dsonar.projectName=project2 \
                     -Dsonar.projectKey=viralpatel489_project2 \
-                    -Dsonar.java.binaries=.
+                    -Dsonar.sources=. \
+                    -Dsonar.java.binaries=. \
+                    -Dsonar.token=${SONAR_AUTH_TOKEN}
                   '''
+                    }
                 }
             }         
         }
