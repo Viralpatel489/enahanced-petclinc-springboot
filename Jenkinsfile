@@ -48,18 +48,19 @@ pipeline {
                 }
             }         
         }
-        //  stage('Maven Package ') {
-        //     steps {
-        //         sh 'mvn package'
-        //     }
-        // }
-        // stage('Sonar Quality Gate') {
-        //     steps {
-        //         timeout(time: 1, unit: 'MINUTES') {
-        //             waitForQualityGate abortPipeline: true, credentialsId: 'sonar'
-        //         }
-        //     }
-        // }
+         stage('Maven Package ') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('Sonar Quality Gate') {
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                    // , credentialsId: 'sonar'
+                }
+            }
+        }
         // stage('Docker Build') {
         //     steps {
         //         script {
