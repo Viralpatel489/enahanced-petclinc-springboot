@@ -30,9 +30,9 @@ pipeline {
             }
         }
         stage('Sonar Analysis ') {
-            // environment {
-            //     SCANNER_HOME = tool 'sonarproject2'
-            // }   
+            environment {
+                SCANNER_HOME = tool 'sonarproject2'
+            }   
             steps {
                 withCredentials([string(credentialsId: 'token1', variable: 'SONAR_AUTH_TOKEN')]) {
                 withSonarQubeEnv('sonarqubeserver') {
